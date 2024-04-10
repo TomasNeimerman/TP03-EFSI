@@ -87,3 +87,27 @@ function searchTasksByDueDate() {
     }
   });
 }
+
+function showTasksButtonClicked() {
+  const projectIndex = document.getElementById('searchProjectSelect').value;
+  const selectedProject = projects[projectIndex];
+  const tasksContainer = document.getElementById('tasksContainer');
+  tasksContainer.innerHTML = '';
+
+  if (selectedProject && selectedProject.tasks.length > 0) {
+    selectedProject.tasks.forEach(task => {
+      const taskElement = document.createElement('div');
+      taskElement.classList.add('task');
+      taskElement.innerHTML = `
+        <label>${task.description} - Due Date: ${task.dueDate}</label>
+      `;
+      tasksContainer.appendChild(taskElement);
+    });
+  } else {
+    const noTasksMessage = document.createElement('p');
+    noTasksMessage.textContent = 'No tasks found for this project.';
+    tasksContainer.appendChild(noTasksMessage);
+  }
+}
+
+
